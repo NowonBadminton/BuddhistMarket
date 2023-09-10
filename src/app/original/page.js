@@ -7,17 +7,17 @@ export const metadata = {
 
 export default function Original () {
     return (
-        <div className="w-full max-h-screen h-screen">
-            <div className="flex h-1/2">
+        <div className="w-full h-full">
+            <div className="flex h-2/3">
                 {top3.map(item=>(
-                    <Link href={`/original/${item.alt}`} className="w-1/3 hover:opacity-75 transition-opacity relative" key={item.id}>
+                    <Link href={`/original/${item.alt}`} className="w-1/3 h-full hover:opacity-75 transition-opacity relative" key={item.id}>
                         <Image src={item.url} alt={item.alt} layout="fill" objectFit="cover"/>
                     </Link>
                 ))}
             </div>
-            <div className="flex h-1/2">
+            <div className="flex h-1/3">
                 {after4.map(item=>(
-                    <Link href={`/original/${item.alt}`} className="hover:opacity-75 transition-opacity w-1/4 relative" key={item.id}>
+                    <Link href={`/original/${item.alt}`} className="w-1/4 h-full hover:opacity-75 transition-opacity relative" key={item.id}>
                         <Image src={item.url} alt={item.alt} layout="fill" objectFit="cover"/>
                     </Link>
                 ))}
@@ -32,12 +32,6 @@ const original = [
     type: 'original',
     alt: '1',
     url: '/images/1.jpg',
-    },
-    {
-    id: 2,
-    type: 'original',
-    alt: '2',
-    url: '/images/2.jpg',
     },
     {
     id: 2,
