@@ -1,25 +1,23 @@
-import './globals.css'
-import Link from 'next/link'
+import Header from './components/Header';
+import './globals.css';
+
 export const metadata = {
-  title: 'Buddhist Painting Market',
+  title: {
+    default: 'Buddhist Painting Market',
+    template: '%s | Buddhist Painting Market',
+  },
   description: 'We Are Buddhist Painting Market',
-}
+};
 
 export default function RootLayout({ children }) {
   return (
     <html>
-      <body>
-        <header>
-          <ul>
-            <li><Link href={"/"}>Home</Link></li>
-            <li><Link href={"original"}>Original</Link></li>
-            <li><Link href={"copy"}>Copy</Link></li>
-            <li><Link href={"collection"}>Collection</Link></li>
-            <li><Link href={"etc"}>Etc</Link></li>
-          </ul>
-        </header>
-        {children}
-        </body>
+      <body className="flex flex-col h-screen relative">
+        <Header/>
+        <main className="flex-grow h-[calc(100vh-64px)]">
+          {children}
+        </main>
+      </body>
     </html>
-  )
+  );
 }
