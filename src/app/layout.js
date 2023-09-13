@@ -1,5 +1,5 @@
-import Header from './components/Header'
-import './globals.css'
+import Header from './components/Header';
+import './globals.css';
 
 export const metadata = {
   title: {
@@ -7,7 +7,7 @@ export const metadata = {
     template: '%s | Buddhist Painting Market',
   },
   description: 'We Are Buddhist Painting Market',
-}
+};
 
 export default function RootLayout({ children }) {
   return (
@@ -19,5 +19,5 @@ export default function RootLayout({ children }) {
         </main>
       </body>
     </html>
-  )
+  );
 }
