@@ -6,7 +6,7 @@ export default function Header() {
             <div className="logo">
                 <Link href={"/"}>불화마켓</Link>
             </div>
-            <nav className='flex gap-3'>
+            <nav className="flex gap-3">
                 <Link href={"/"}>Home</Link>
                 <Link href={"/original"}>Original</Link>
                 <Link href={"/copy"}>Copy</Link>

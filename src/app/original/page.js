@@ -12,6 +12,7 @@ export default function Original () {
                 {top3.map(item=>(
                     <Link href={`/original/${item.alt}`} className="w-1/3 h-full hover:opacity-75 transition-opacity relative" key={item.id}>
                         <Image src={item.url} alt={item.alt} layout="fill" objectFit="cover"/>
+                        <p className="absolute bottom-4 left-1 text-white">제목 : {item.alt}</p>
                     </Link>
                 ))}
             </div>
@@ -19,6 +20,7 @@ export default function Original () {
                 {after4.map(item=>(
                     <Link href={`/original/${item.alt}`} className="w-1/4 h-full hover:opacity-75 transition-opacity relative" key={item.id}>
                         <Image src={item.url} alt={item.alt} layout="fill" objectFit="cover"/>
+                        <p className="absolute bottom-4 left-1 text-white">제목 : {item.alt}</p>
                     </Link>
                 ))}
             </div>
