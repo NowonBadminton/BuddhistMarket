@@ -7,7 +7,7 @@ export const metadata = {
     template: '%s | Buddhist Painting Market',
   },
   description: 'We Are Buddhist Painting Market',
-}
+};
 
 export default function RootLayout({ children }) {
   return (
@@ -19,5 +19,5 @@ export default function RootLayout({ children }) {
         </main>
       </body>
     </html>
-  )
+  );
 }
