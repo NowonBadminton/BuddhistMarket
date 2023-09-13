@@ -12,7 +12,7 @@ export default function Header() {
                 <Link href={"/copy"}>Copy</Link>
                 <Link href={"/collection"}>Collection</Link>
                 <Link href={"/etc"}>Etc</Link>
-                <button>Login</button>
+                <Link href={"/login"}>Login</Link>
             </nav>
         </header>
     );

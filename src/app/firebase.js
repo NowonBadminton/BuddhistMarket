@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import 'firebase/firestore';
-import 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, connectAuthEmulator } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,3 +14,14 @@ const firebaseConfig = {
   
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
+connectAuthEmulator(auth, "http://localhost:9099");
+
+const loginEmailPassword = async () => {
+    const loginEmail = txtEmail.value;
+    const loginPassword = txtPassword.value;
+    const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+    console.log(userCredential.user);
+}
+btnLogin.addEventListener("click", loginEmailPassword);
