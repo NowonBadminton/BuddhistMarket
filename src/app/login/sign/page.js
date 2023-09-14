@@ -14,11 +14,11 @@ export default function sign() {
                         Create your account
                     </h1>
                     <div className="flex flex-row justify-between">
-                        <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-primary-300 hover:text-gray-700 hover:border-gray-400 hover:shadow-md">
+                        <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-primary-300 hover:text-gray-700 hover:border-gray-400 hover:shadow-md dark:text-white">
                             <FcGoogle/>
                             <p className="text-sm">Sign up with Google</p>
                         </button>
-                        <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-primary-300 hover:text-gray-700 hover:border-gray-400 hover:shadow-md">
+                        <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-primary-300 hover:text-gray-700 hover:border-gray-400 hover:shadow-md dark:text-white">
                             <BsGithub/>
                             <p className="text-sm">Sign up with Github</p>
                         </button>

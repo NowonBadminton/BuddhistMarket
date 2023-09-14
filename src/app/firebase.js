@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, connectAuthEmulator } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,12 +16,60 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
-connectAuthEmulator(auth, "http://localhost:9099");
 
-const loginEmailPassword = async () => {
-    const loginEmail = txtEmail.value;
-    const loginPassword = txtPassword.value;
-    const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-    console.log(userCredential.user);
-}
-btnLogin.addEventListener("click", loginEmailPassword);
+export const signUp = createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+});
+
+export const login = signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+});
+
+const user = auth.currentUser;
+export const authState = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.uid;
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+});
+
+const provider = new GoogleAuthProvider();
+export const google = signInWithPopup(auth, provider)
+.then((result) => {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  const credential = GoogleAuthProvider.credentialFromResult(result);
+  const token = credential.accessToken;
+  // The signed-in user info.
+  const user = result.user;
+  // IdP data available using getAdditionalUserInfo(result)
+  // ...
+}).catch((error) => {
+  // Handle Errors here.
+  const errorCode = error.code;
+  const errorMessage = error.message;
+  // The email of the user's account used.
+  const email = error.customData.email;
+  // The AuthCredential type that was used.
+  const credential = GoogleAuthProvider.credentialFromError(error);
+  // ...
+});

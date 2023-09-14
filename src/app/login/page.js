@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { FcGoogle } from "react-icons/fc";
-import { BsGithub } from "react-icons/bs";
+import Link from 'next/link';
+import { FcGoogle } from 'react-icons/fc';
+import { BsGithub } from 'react-icons/bs';
 export default function login() {
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -14,11 +14,11 @@ export default function login() {
                         Sign in to your account
                     </h1>
                     <div className="flex flex-row justify-between">
-                        <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-primary-300 hover:text-gray-700 hover:border-gray-400 hover:shadow-md">
+                        <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-primary-300 hover:text-gray-700 hover:border-gray-400 hover:shadow-md dark:text-white">
                             <FcGoogle/>
                             <p className="text-sm">Log in with Google</p>
                         </button>
-                        <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg hover:text-gray-700 focus:ring-2 focus:outline-none focus:ring-primary-300 hover:border-gray-400 hover:shadow-md">
+                        <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg hover:text-gray-700 focus:ring-2 focus:outline-none focus:ring-primary-300 hover:border-gray-400 hover:shadow-md dark:text-white">
                             <BsGithub/>
                             <p className="text-sm">Log in with Github</p>
                         </button>
