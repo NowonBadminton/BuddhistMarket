@@ -57,6 +57,6 @@ export default function sign() {
                 </div>
             </div>
         </div>
-        </section>
+    </section>
   );
 }
