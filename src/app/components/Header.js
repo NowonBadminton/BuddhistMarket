@@ -1,16 +1,23 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
-import { auth, onAuthStateChanged } from '../firebase';
+import { auth, signOut, onAuthStateChanged } from '../firebase';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function Header() {
     const router = useRouter();
     const [userId, setUserId] = useState(null);
-    const logOut = async () => {
-        await auth.signOut();
-        router.push('/');
+    const logOut = () => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            console.log("logout successfully done");
+            router.push('/');
+          }).catch((error) => {
+            // An error happened.
+            console.log("logout error");
+          });
+       
     };
     useEffect(() => {
         const authState = onAuthStateChanged(auth, (user) => {
@@ -37,7 +44,7 @@ export default function Header() {
                 <Link href={"/collection"}>Collection</Link>
                 <Link href={"/etc"}>Etc</Link>
                 {userId?
-                    <div className='flex gap-3'>
+                    <div className="flex gap-3">
                         <Link href={"/mypage"}>My Page</Link>
                         <button onClick={logOut}>Log Out</button>
                     </div>

@@ -1,32 +1,54 @@
-"use client";
+'use client';
 
-import { useState } from 'react';
-import { auth, createUserWithEmailAndPassword } from '@/app/firebase';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { auth, createUserWithEmailAndPassword, onAuthStateChanged } from '@/app/firebase';
 import Link from 'next/link';
-import { FcGoogle } from 'react-icons/fc';
-import { BsGithub } from 'react-icons/bs';
 
 export default function sign() {
+    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const signUp = (e) => {
-    e.preventDefault();
-    // 비밀번호 일치 검사
-    if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return;
-    }
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    const [passwordError, setPasswordError] = useState("");
+    const validatePassword = (password) => {
+        let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/;
+        return reg.test(password);
     };
+    const passwordOnChange = (e) => {
+        setPassword(e.target.value);
+        if(!validatePassword(e.target.value)){
+            setPasswordError("A-Z, a-z, 0-9, 특수문자 포함, 8자 이상");
+        }else{
+            setPasswordError("");
+        };
+    };
+    const signUp = (e) => {
+        e.preventDefault();
+        // 비밀번호 일치 검사
+        if ((password !== confirmPassword)||(passwordError!=="")) {
+            alert("비밀번호를 다시 확인하세요");
+            return;
+        }
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log("회원가입 완료. id = " + user.providerId);
+            router.push("/");
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+    };
+    useEffect(() => {
+        const authState = onAuthStateChanged(auth, (user) => {
+            if (user) {
+              router.push("/");
+            };
+        });
+        return () => authState();
+    }, []);
     return (
         <section className="bg-gray-50 dark:bg-gray-900 h-full">
             <div className="flex flex-col items-center justify-center px-6 mx-auto md:h-full lg:py-0">
@@ -38,21 +60,6 @@ export default function sign() {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Create your account
                         </h1>
-                        <div className="flex flex-row justify-between">
-                            <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-primary-300 hover:text-gray-700 hover:border-gray-400 hover:shadow-md dark:text-white">
-                                <FcGoogle/>
-                                <p className="text-sm">Sign up with Google</p>
-                            </button>
-                            <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-primary-300 hover:text-gray-700 hover:border-gray-400 hover:shadow-md dark:text-white">
-                                <BsGithub/>
-                                <p className="text-sm">Sign up with Github</p>
-                            </button>
-                        </div>
-                        <div className="flex flex-row items-center text-center">
-                            <div className="w-5/12 h-[1px] bg-slate-400"></div>
-                            <div className="w-2/12">OR</div>
-                            <div className="w-5/12 h-[1px] bg-slate-400"></div>
-                        </div>
                         <form className="space-y-4 md:space-y-6" action="#" onSubmit={signUp}>
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
@@ -60,7 +67,8 @@ export default function sign() {
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                <input onChange={(e) => {setPassword(e.target.value)}} value={password} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                <input onChange={passwordOnChange} value={password} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
                             </div>
                             <div>
                                 <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>

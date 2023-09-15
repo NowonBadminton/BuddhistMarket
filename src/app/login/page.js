@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth, onAuthStateChanged, signInWithEmailAndPassword } from '../firebase';
+import { auth, onAuthStateChanged, signInWithEmailAndPassword, googleProvider, GoogleAuthProvider, githubProvider, GithubAuthProvider, signInWithPopup } from '../firebase';
 import Link from 'next/link';
 import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
@@ -17,12 +17,56 @@ export default function login() {
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            console.log("login done. user = "+user.providerData);
+            console.log("login done. user = "+user.providerId);
             router.push("/");
         })
         .catch((error) => {
             alert(error.message);
         });
+    };
+    const googleLogin = () => {
+        signInWithPopup(auth, googleProvider)
+        .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            // IdP data available using getAdditionalUserInfo(result)
+            console.log("google login done. user = "+user.providerId);
+            router.push("/");
+        }).catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.customData.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            alert(errorMessage+email+credential);
+        });
+    };
+    const githubLogin = () => {
+    signInWithPopup(auth, githubProvider)
+    .then((result) => {
+        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        console.log("github login done. user = "+user.providerId);
+        router.push("/");
+    }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GithubAuthProvider.credentialFromError(error);
+        alert(errorMessage+email+credential);
+    });
     };
     useEffect(() => {
         const authState = onAuthStateChanged(auth, (user) => {
@@ -45,11 +89,11 @@ export default function login() {
                             Sign in to your account
                         </h1>
                         <div className="flex flex-row justify-between">
-                            <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-primary-300 hover:text-gray-700 hover:border-gray-400 hover:shadow-md dark:text-white">
+                            <button onClick={googleLogin} className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg focus:ring-2 focus:outline-none focus:ring-primary-300 hover:text-gray-700 hover:border-gray-400 hover:shadow-md dark:text-white">
                                 <FcGoogle/>
                                 <p className="text-sm">Log in with Google</p>
                             </button>
-                            <button className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg hover:text-gray-700 focus:ring-2 focus:outline-none focus:ring-primary-300 hover:border-gray-400 hover:shadow-md dark:text-white">
+                            <button onClick={githubLogin} className="flex flex-row gap-2 items-center text-gray-500 px-4 py-2 border border-gray-300 shadow-sm rounded-lg hover:text-gray-700 focus:ring-2 focus:outline-none focus:ring-primary-300 hover:border-gray-400 hover:shadow-md dark:text-white">
                                 <BsGithub/>
                                 <p className="text-sm">Log in with Github</p>
                             </button>
