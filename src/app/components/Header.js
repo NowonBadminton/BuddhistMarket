@@ -13,24 +13,25 @@ export default function Header() {
             // Sign-out successful.
             console.log("logout successfully done");
             router.push('/');
-          }).catch((error) => {
+        }).catch((error) => {
             // An error happened.
             console.log("logout error");
-          });
-       
+        });
+
     };
     useEffect(() => {
         const authState = onAuthStateChanged(auth, (user) => {
+            setUserId(user?.uid);
             if (user) {
-              setUserId(user.uid);
-              console.log("login checked");
+                setUserId(user.uid);
+                console.log("login checked");
             } else {
                 setUserId(null);
-              console.log("logout checked");
+                console.log("logout checked");
             };
         });
         return () => authState();
-    },[]);
+    }, []);
 
     return (
         <header className="flex justify-between px-5 py-5 bg-black text-white sticky w-full top-0 z-10">
@@ -43,12 +44,12 @@ export default function Header() {
                 <Link href={"/copy"}>Copy</Link>
                 <Link href={"/collection"}>Collection</Link>
                 <Link href={"/etc"}>Etc</Link>
-                {userId?
+                {userId ?
                     <div className="flex gap-3">
                         <Link href={"/mypage"}>My Page</Link>
                         <button onClick={logOut}>Log Out</button>
                     </div>
-                    :<Link href={"/login"}>Login</Link>
+                    : <Link href={"/login"}>Login</Link>
                 }
             </nav>
         </header>
