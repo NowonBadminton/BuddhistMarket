@@ -1,44 +1,11 @@
+import { Product, ProductType } from './product';
+
 export const original = [
-    {
-    id: 1,
-    type: 'original',
-    alt: '1',
-    url: '/images/1.jpg',
-    },
-    {
-    id: 2,
-    type: 'original',
-    alt: '2',
-    url: '/images/2.jpg',
-    },
-    {
-    id: 3,
-    type: 'original',
-    alt: '3',
-    url: '/images/3.jpg',
-    },
-    {
-    id: 4,
-    type: 'original',
-    alt: '4',
-    url: '/images/4.jpg',
-    },
-    {
-    id: 5,
-    type: 'original',
-    alt: '5',
-    url: '/images/5.jpg',
-    },
-    {
-    id: 6,
-    type: 'original',
-    alt: '6',
-    url: '/images/6.jpg',
-    },
-    {
-    id: 7,
-    type: 'original',
-    alt: '7',
-    url: '/images/7.jpg',
-    },
+    new Product(1, ProductType.ORIGINAL, "1위", "/images/1.jpg"),
+    new Product(2, ProductType.ORIGINAL, "2위", "/images/2.jpg"),
+    new Product(3, ProductType.ORIGINAL, "3위", "/images/3.jpg"),
+    new Product(4, ProductType.ORIGINAL, "4위", "/images/4.jpg"),
+    new Product(5, ProductType.ORIGINAL, "5위", "/images/5.jpg"),
+    new Product(6, ProductType.ORIGINAL, "6위", "/images/6.jpg"),
+    new Product(7, ProductType.ORIGINAL, "7위", "/images/7.jpg"),
 ];
