@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html>
+    <html lang="kr">
       <body className="flex flex-col h-screen relative">
         <Header/>
         <main className="flex-grow h-[calc(100vh-64px)]">
