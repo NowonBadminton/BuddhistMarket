@@ -4,8 +4,8 @@ export class Product {
         this.type = type;
         this.alt = alt;
         this.url = url;
-    };
-};
+    }
+}
 
 export const ProductType = {
     ORIGINAL: 'original',
