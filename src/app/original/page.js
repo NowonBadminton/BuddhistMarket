@@ -9,21 +9,21 @@ export const metadata = {
 const top3 = original.slice(0, 3);
 const after4 = original.slice(3, 7);
 
-export default function Original () {
+export default function Original() {
     return (
-        <div className="w-full h-full">
-            <div className="flex h-2/3">
-                {top3.map(item=>(
-                    <Link href={`/original/${item.alt}`} className="w-1/3 h-full hover:opacity-75 transition-opacity relative" key={item.id}>
-                        <Image src={item.url} alt={item.alt} layout="fill" objectFit="cover"/>
+        <div className="w-full h-auto">
+            <div className="grid-container top3">
+                {top3.map(item => (
+                    <Link href={`/original/${item.alt}`} className="grid-item" key={item.id}>
+                        <Image src={item.url} alt={item.alt} sizes="(max-width: 768px) 90vw, 33vw" fill={true} className="max-w-full w-auto h-auto"/>
                         <p className="absolute bottom-4 left-1 text-white">제목 : {item.alt}</p>
                     </Link>
                 ))}
             </div>
-            <div className="flex h-1/3">
-                {after4.map(item=>(
-                    <Link href={`/original/${item.alt}`} className="w-1/4 h-full hover:opacity-75 transition-opacity relative" key={item.id}>
-                        <Image src={item.url} alt={item.alt} layout="fill" objectFit="cover"/>
+            <div className="grid-container after4">
+                {after4.map(item => (
+                    <Link href={`/original/${item.alt}`} className="grid-item" key={item.id}>
+                        <Image src={item.url} alt={item.alt} sizes="(max-width: 1024px) 50vw, 25vw" fill={true} className="max-w-full w-auto h-auto"/>
                         <p className="absolute bottom-4 left-1 text-white">제목 : {item.alt}</p>
                     </Link>
                 ))}

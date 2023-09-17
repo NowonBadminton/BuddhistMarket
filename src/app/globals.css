@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .grid-container {
+        @apply m-2 grid gap-2 max-h-full h-auto;
+    }
+    .grid-item {
+        @apply min-h-[50vw] md:min-h-[30vw] max-w-full hover:opacity-75 transition-opacity relative;
+    }
+    .top3 {
+        @apply grid-cols-1 md:grid-cols-3;
+    }
+    .after4 {
+        @apply grid-cols-2 xl:grid-cols-4;
+    }
+}

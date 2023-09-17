@@ -9,8 +9,8 @@ import { BsGithub } from 'react-icons/bs';
 
 export default function login() {
     const router = useRouter();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const signIn = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
@@ -18,7 +18,7 @@ export default function login() {
                 // Signed in 
                 const user = userCredential.user;
                 console.log("login done. user = " + user.providerId);
-                router.push("/");
+                router.push('/');
             })
             .catch((error) => {
                 alert(error.message);
@@ -34,9 +34,8 @@ export default function login() {
                 const user = result.user;
                 // IdP data available using getAdditionalUserInfo(result)
                 console.log("google login done. user = " + user.providerId);
-                router.push("/");
+                router.push('/');
             }).catch((error) => {
-                // Handle Errors here.
                 const errorMessage = error.message;
                 // The email of the user's account used.
                 const email = error.customData.email;
