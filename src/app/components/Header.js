@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { auth, signOut, onAuthStateChanged } from '../firebase';
+import { auth } from '../firebase';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -12,7 +13,7 @@ export default function Header() {
         signOut(auth).then(() => {
             router.push('/');
         }).catch((error) => {
-            alert("logout error : " + error);
+            alert('logout error : ' + error);
         });
     };
     useEffect(() => {
