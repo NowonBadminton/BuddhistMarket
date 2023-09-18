@@ -10,25 +10,14 @@ export default function Header() {
     const [userId, setUserId] = useState(null);
     const logOut = () => {
         signOut(auth).then(() => {
-            // Sign-out successful.
-            console.log("logout successfully done");
             router.push('/');
         }).catch((error) => {
-            // An error happened.
-            console.log("logout error");
+            alert("logout error : " + error);
         });
-
     };
     useEffect(() => {
         const authState = onAuthStateChanged(auth, (user) => {
             setUserId(user?.uid);
-            if (user) {
-                setUserId(user.uid);
-                console.log("login checked");
-            } else {
-                setUserId(null);
-                console.log("logout checked");
-            };
         });
         return () => authState();
     }, []);
