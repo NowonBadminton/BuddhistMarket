@@ -10,6 +10,7 @@ const REG = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/;
 function validatePassword(password) {
     return REG.test(password);
 };
+
 const PWERR = 'A-Z, a-z, 0-9, 특수문자 포함, 8자 이상';
 
 export default function Sign() {
