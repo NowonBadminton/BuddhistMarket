@@ -21,7 +21,7 @@ export default function Login() {
                 alert(error.message);
             });
     };
-    const SignIn = (e) => {
+    const onEmailSignInButtonClick = (e) => {
         e.preventDefault();
         signInWithEmail();
     };
@@ -67,7 +67,7 @@ export default function Login() {
                             <div className="w-2/12">OR</div>
                             <div className="w-5/12 h-[1px] bg-slate-400"></div>
                         </div>
-                        <form className="text-sm space-y-4 md:space-y-6" action="#" onSubmit={SignIn}>
+                        <form className="text-sm space-y-4 md:space-y-6" action="#" onSubmit={onEmailSignInButtonClick}>
                             <div>
                                 <label htmlFor="email" className="info-input-label">Your email</label>
                                 <input className="info-input" onChange={(e) => { setEmail(e.target.value) }} value={email} type="email" name="email" id="email" placeholder="name@company.com" required />

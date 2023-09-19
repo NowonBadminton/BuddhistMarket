@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/aut
 import Link from 'next/link';
 
 const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/;
+const pwErr = 'A-Z, a-z, 0-9, 특수문자 포함, 8자 이상';
 function validatePassword(password) {
     return reg.test(password);
 };
@@ -18,19 +19,16 @@ export default function Sign() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
     function validSignUp() {
-        if (password !== confirmPassword || passwordError !== '') {
-            return false;
-        };
-        return true;
+        return password === confirmPassword && passwordError === '';
     };
     const checkPasswordValidity = (password) => {
         if (validatePassword(password)) {
             setPasswordError('');
             return;
         };
-        setPasswordError('A-Z, a-z, 0-9, 특수문자 포함, 8자 이상');
+        setPasswordError(pwErr);
     };
-    const passwordOnChange = (e) => {
+    const onPasswordChange = (e) => {
         setPassword(e.target.value);
         checkPasswordValidity(e.target.value);
     };
@@ -43,7 +41,7 @@ export default function Sign() {
                 alert(error.message);
             });
     };
-    const signUp = (e) => {
+    const onEmailSignUpButtonClick = (e) => {
         e.preventDefault();
         if (!validSignUp()) {
             alert('비밀번호를 다시 확인하세요');
@@ -70,14 +68,14 @@ export default function Sign() {
                         <h1 className="sign-title">
                             Create your account
                         </h1>
-                        <form className="text-sm space-y-4 md:space-y-6" action="#" onSubmit={signUp}>
+                        <form className="text-sm space-y-4 md:space-y-6" action="#" onSubmit={onEmailSignUpButtonClick}>
                             <div>
                                 <label htmlFor="email" className="info-input-label">Your email</label>
                                 <input className="info-input" onChange={(e) => { setEmail(e.target.value) }} value={email} type="email" name="email" id="email" placeholder="name@company.com" required />
                             </div>
                             <div>
                                 <label htmlFor="password" className="info-input-label">Password</label>
-                                <input className="info-input" onChange={passwordOnChange} value={password} type="password" name="password" id="password" placeholder="••••••••" required />
+                                <input className="info-input" onChange={onPasswordChange} value={password} type="password" name="password" id="password" placeholder="••••••••" required />
                                 {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
                             </div>
                             <div>
