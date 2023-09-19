@@ -6,11 +6,11 @@ import { auth } from '@/app/firebase';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import Link from 'next/link';
 
-const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/;
-const pwErr = 'A-Z, a-z, 0-9, 특수문자 포함, 8자 이상';
+const REG = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/;
 function validatePassword(password) {
-    return reg.test(password);
+    return REG.test(password);
 };
+const PWERR = 'A-Z, a-z, 0-9, 특수문자 포함, 8자 이상';
 
 export default function Sign() {
     const router = useRouter();
@@ -26,7 +26,7 @@ export default function Sign() {
             setPasswordError('');
             return;
         };
-        setPasswordError(pwErr);
+        setPasswordError(PWERR);
     };
     const onPasswordChange = (e) => {
         setPassword(e.target.value);
