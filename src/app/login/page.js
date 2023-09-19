@@ -21,11 +21,11 @@ export default function Login() {
                 alert(error.message);
             });
     };
-    const onEmailSignInClick = (e) => {
+    const SignIn = (e) => {
         e.preventDefault();
         signInWithEmail();
     };
-    const snsSignin = (snsProvider) => {
+    const signInWithSns = (snsProvider) => {
         signInWithPopup(auth, snsProvider)
             .then(() => {
                 router.push('/');
@@ -53,11 +53,11 @@ export default function Login() {
                             Sign in to your account
                         </h1>
                         <div className="flex flex-row justify-between">
-                            <button onClick={() => snsSignin(googleProvider)} className="sns-button">
+                            <button onClick={() => signInWithSns(googleProvider)} className="sns-button">
                                 <FcGoogle />
                                 <p className="text-sm">Log in with Google</p>
                             </button>
-                            <button onClick={() => snsSignin(githubProvider)} className="sns-button">
+                            <button onClick={() => signInWithSns(githubProvider)} className="sns-button">
                                 <BsGithub />
                                 <p className="text-sm">Log in with Github</p>
                             </button>
@@ -67,7 +67,7 @@ export default function Login() {
                             <div className="w-2/12">OR</div>
                             <div className="w-5/12 h-[1px] bg-slate-400"></div>
                         </div>
-                        <form className="text-sm space-y-4 md:space-y-6" action="#" onSubmit={onEmailSignInClick}>
+                        <form className="text-sm space-y-4 md:space-y-6" action="#" onSubmit={SignIn}>
                             <div>
                                 <label htmlFor="email" className="info-input-label">Your email</label>
                                 <input className="info-input" onChange={(e) => { setEmail(e.target.value) }} value={email} type="email" name="email" id="email" placeholder="name@company.com" required />

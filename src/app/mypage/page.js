@@ -9,7 +9,7 @@ export default function Mypage() {
     const router = useRouter();
     useEffect(() => {
         const authState = onAuthStateChanged(auth, (user) => {
-            if (!user) return;
+            if (user) return;
             router.push('/login');
         });
 

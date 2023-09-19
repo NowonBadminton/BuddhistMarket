@@ -7,15 +7,8 @@ import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/aut
 import Link from 'next/link';
 
 const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/;
-const validatePassword = (password) => {
+function validatePassword(password) {
     return reg.test(password);
-};
-const validSingUp = () => {
-    if (password !== confirmPassword || passwordError !== '') {
-        alert('비밀번호를 다시 확인하세요');
-        return false;
-    };
-    return true;
 };
 
 export default function Sign() {
@@ -24,16 +17,22 @@ export default function Sign() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    function validSignUp() {
+        if (password !== confirmPassword || passwordError !== '') {
+            return false;
+        };
+        return true;
+    };
+    const checkPasswordValidity = (password) => {
+        if (validatePassword(password)) {
+            setPasswordError('');
+            return;
+        };
+        setPasswordError('A-Z, a-z, 0-9, 특수문자 포함, 8자 이상');
+    };
     const passwordOnChange = (e) => {
         setPassword(e.target.value);
-        onChangePasswordError(e.target.value);
-    };
-    const onChangePasswordError = (password) => {
-        if (!validatePassword(password)) {
-            setPasswordError('A-Z, a-z, 0-9, 특수문자 포함, 8자 이상');
-        } else {
-            setPasswordError('');
-        };
+        checkPasswordValidity(e.target.value);
     };
     const signUpWithEmail = () => {
         createUserWithEmailAndPassword(auth, email, password)
@@ -46,9 +45,11 @@ export default function Sign() {
     };
     const signUp = (e) => {
         e.preventDefault();
-        if (validSingUp()) {
-            signUpWithEmail();
-        };
+        if (!validSignUp()) {
+            alert('비밀번호를 다시 확인하세요');
+            return;
+        }
+        signUpWithEmail();
     };
     useEffect(() => {
         const authState = onAuthStateChanged(auth, (user) => {
@@ -57,7 +58,7 @@ export default function Sign() {
         });
         return () => authState();
     }, []);
-    
+
     return (
         <section className="sign-wrap">
             <div className="sign">
